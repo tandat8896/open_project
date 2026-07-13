@@ -1,0 +1,3 @@
+headscale.tandat8896.me {
+    reverse_proxy headscale:8080
+}

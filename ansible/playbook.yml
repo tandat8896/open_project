@@ -1,0 +1,30 @@
+---
+- name: Deploy Headscale + OpenProject lên droplet
+  hosts: jira
+  become: false
+
+  tasks:
+    - name: Copy thư mục headscale
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../deploy/headscale/"
+        dest: "~/headscale/"
+
+    - name: Tạo thư mục lib cho headscale (sqlite db)
+      ansible.builtin.file:
+        path: "~/headscale/lib"
+        state: directory
+
+    - name: Copy thư mục openproject
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../deploy/openproject/"
+        dest: "~/openproject/"
+
+    - name: Bật headscale + caddy
+      community.docker.docker_compose_v2:
+        project_src: "~/headscale"
+        state: present
+
+    - name: Bật openproject
+      community.docker.docker_compose_v2:
+        project_src: "~/openproject"
+        state: present

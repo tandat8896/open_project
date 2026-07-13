@@ -1,0 +1,19 @@
+services:
+  jira:
+    image: atlassian/jira-software:latest
+    container_name: jira
+    restart: unless-stopped
+    ports:
+      - "8080:8080" # chỉ tới được qua Tailscale, vì Cloud Firewall không mở 8080 ra public
+    environment:
+      ATL_DB_TYPE: postgres72
+      ATL_JDBC_URL: ${ATL_JDBC_URL}
+      ATL_JDBC_USER: ${ATL_JDBC_USER}
+      ATL_JDBC_PASSWORD: ${ATL_JDBC_PASSWORD}
+      JVM_MINIMUM_MEMORY: 1024m
+      JVM_MAXIMUM_MEMORY: 2048m
+    volumes:
+      - jira-data:/var/atlassian/application-data/jira
+
+volumes:
+  jira-data:

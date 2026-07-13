@@ -1,0 +1,30 @@
+services:
+  headscale:
+    image: docker.io/headscale/headscale:stable
+    container_name: headscale
+    restart: unless-stopped
+    command: serve
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    volumes:
+      - ./config:/etc/headscale:ro
+      - ./lib:/var/lib/headscale
+    healthcheck:
+      test: ["CMD", "headscale", "health"]
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+    depends_on:
+      - headscale
+
+volumes:
+  caddy-data:

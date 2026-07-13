@@ -1,0 +1,5 @@
+jira/.env
+openproject/.env
+headscale/lib/
+headscale/config/*.sqlite*
+headscale/config/noise_private.key

@@ -1,0 +1,19 @@
+services:
+  openproject:
+    image: openproject/openproject:15
+    container_name: openproject
+    restart: unless-stopped
+    ports:
+      - "8080:80" # chỉ tới được qua Tailscale, Cloud Firewall không mở port này ra public
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      OPENPROJECT_HOST__NAME: ${OPENPROJECT_HOST__NAME}
+      OPENPROJECT_HTTPS: "false"
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      RAILS_MIN_THREADS: 4
+      RAILS_MAX_THREADS: 16
+    volumes:
+      - openproject-assets:/var/openproject/assets
+
+volumes:
+  openproject-assets:

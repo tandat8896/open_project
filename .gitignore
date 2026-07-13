@@ -1,0 +1,10 @@
+.envrc
+.env
+*.tfvars
+*.tfvars.json
+.direnv/
+
+# Chặn hết file .md (nhiều file có chứa password/key thật trong ví dụ lệnh),
+# chỉ giữ lại README.md ở gốc.
+*.md
+!/README.md
