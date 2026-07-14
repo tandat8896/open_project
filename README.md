@@ -1,4 +1,8 @@
 
+## Truy cập
+
+URL: `http://100.64.0.2:8080` (IP tailnet của droplet — cần bật Tailscale trên máy, join vào tailnet qua Headscale trước mới vào được, không public ra internet).
+
 ## Cấu trúc thư mục
 
 ```
