@@ -24,4 +24,5 @@ open_project/
 ## Cho team truy cập
 
 Xem `scripts/team-tailscale/README.md` — hướng dẫn 3 bước để team join tailnet qua Docker (không cần cài app native), cộng thêm bước admin tạo tài khoản OpenProject riêng cho từng người.
-check workflow github intergration :! 
+
+
