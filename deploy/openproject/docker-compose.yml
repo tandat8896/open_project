@@ -1,6 +1,6 @@
 services:
   openproject:
-    image: openproject/openproject:15
+    image: openproject/openproject:16
     container_name: openproject
     restart: unless-stopped
     ports:
@@ -8,6 +8,7 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL}
       OPENPROJECT_HOST__NAME: ${OPENPROJECT_HOST__NAME}
+      OPENPROJECT_ADDITIONAL__HOST__NAMES: ${OPENPROJECT_ADDITIONAL_HOST_NAMES}
       OPENPROJECT_HTTPS: "false"
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
       RAILS_MIN_THREADS: 4
@@ -15,6 +16,14 @@ services:
       OPENPROJECT_FEATURE_DEPLOY_TARGETS_ACTIVE: "true"
     volumes:
       - openproject-assets:/var/openproject/assets
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - openproject
 
 volumes:
   openproject-assets:
